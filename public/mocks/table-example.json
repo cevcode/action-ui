@@ -1,0 +1,81 @@
+{
+  "total": 2,
+  "pageIndex": 1,
+  "filters": {
+    "activeSections": [
+      "inaccuracies",
+      "appointmentId",
+      "doctorFullName",
+      "clinic",
+      "clinicDepartment",
+      "doctorSpecialty",
+      "patientId",
+      "appointmentDateTime",
+      "MKB10Code",
+      "isUnderHospitalization",
+      "isAnamnesisCompleted",
+      "isFilledStatusPraesens"
+    ],
+    "doctorFullName": "Александров М.К.",
+    "patientFullName": "Иванов И.И.",
+    "withErrors": true
+  },
+  "data": {
+    "totalErrorInaccuracies": 3,
+    "totalWarningInaccuracies": 1,
+    "appointments": [
+      {
+        "id": 1,
+        "appointmentId": 223334455,
+        "doctorFullName": "Александров М.К.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 1",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000002,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "inaccuracies": [
+          {
+            "id": 1,
+            "type": "error",
+            "cardSubstring": "Боль в горле",
+            "comment": "Анализ меддокументации: обязательное поле, незаполнено"
+          },
+          {
+            "id": 2,
+            "type": "warning",
+            "cardSubstring": "Боль в горле",
+            "comment": "Анализ меддокументации: обязательное поле, незаполнено"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "appointmentId": 223334456,
+        "doctorFullName": "Александров М.К.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 1",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000000,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "inaccuracies": [
+          {
+            "id": 1,
+            "type": "error",
+            "cardSubstring": "Боль в горле",
+            "comment": "Анализ меддокументации: обязательное поле, незап..."
+          }
+        ]
+      }
+    ]
+  }
+}
