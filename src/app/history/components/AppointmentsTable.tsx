@@ -101,6 +101,7 @@ const AppointmentsTable = ({
           headerName: ' ',
           filterable: false,
           sortable: false,
+          disableColumnMenu: true,
           width: 40,
           headerClassName: 'custom-header',
           renderCell: (params: GridRenderCellParams<TableRowModel>) => {
@@ -123,6 +124,7 @@ const AppointmentsTable = ({
           headerName: 'Ошибки',
           filterable: false,
           sortable: false,
+          disableColumnMenu: true,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell',
           renderCell: (params: GridRenderCellParams<TableRowModel>) => {
