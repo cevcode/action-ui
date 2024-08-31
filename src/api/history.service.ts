@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { PageRequest, PageResponse } from '@/types/Pagination'
-import { HistoryOfChecksFilterProps, HistoryOfChecksResponse } from '@/types/HistoryOfChecks'
+import { HistoryOfChecksFilterProps, HistoryOfChecksResponse, PatientHistoryProps } from '@/types/HistoryOfChecks'
 import { http } from '@/api/http'
 import { AxiosResponse } from 'axios'
 
@@ -19,6 +19,7 @@ export const getHistoryOfChecks = async (requestBody: PageRequest<HistoryOfCheck
   return response.data
 }
 
+
 export const getHistoryOfChecksTemporary = (): Promise<PageResponse<HistoryOfChecksResponse>> => {
   return http.getData<PageResponse<HistoryOfChecksResponse>>(`/mocks/table-example.json`)
 }
@@ -28,5 +29,16 @@ export const useHistoryOfChecks = (requestBody: PageRequest<HistoryOfChecksFilte
     queryKey: ['historyOfChecks', requestBody],
     // queryFn: async () => await getHistoryOfChecks(requestBody),
     queryFn: async () => await getHistoryOfChecksTemporary(),
+  })
+}
+
+export const getPatientHistory = (id: number): Promise<PatientHistoryProps> => {
+  return http.getData<PatientHistoryProps>('/mocks/page-example.json')
+}
+
+export const usePatientHistory = (id: number) => {
+  return useQuery({
+    queryKey: ['patientHistory', id],
+    queryFn: async () => await getPatientHistory(id),
   })
 }

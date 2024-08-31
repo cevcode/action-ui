@@ -4,6 +4,8 @@ import { HistoryOfChecksCardProps } from '@/types/HistoryOfChecks'
 import InaccuracyIndicator from '@/app/history/components/InacurracyIndicator'
 import React, { useEffect, useRef, useState } from 'react'
 import { humanizeBoolean } from '@/helpers/helpers'
+import { inaccuraciesColors } from '@/app/history/helpers/helpers'
+import { useRouter } from 'next/navigation'
 
 interface AppointmentsTableProps {
   appointments: HistoryOfChecksCardProps[]
@@ -33,6 +35,7 @@ const AppointmentsTable = ({
   totalWarningInaccuracies,
   totalErrorInaccuracies
 }: AppointmentsTableProps) => {
+  const router = useRouter()
   const apiRef = useGridApiRef()
   const [scrollPosition, setScrollPosition] = useState<{ top: number; left: number; right: number }>({
     top: 0,
@@ -48,6 +51,25 @@ const AppointmentsTable = ({
       setScrollPosition({ top, left, right: scrollArea - left })
     })
   }, [apiRef.current])
+
+  const getIndicatorColor = (totalInaccuracyErrors: number, totalInaccuracyWarnings: number) => {
+    if (totalInaccuracyErrors > 0) {
+      return {
+        gradient: 'linear-gradient(to right, #F1361D00, #F1361D)',
+        color: inaccuraciesColors.error
+      }
+    }
+    if (totalInaccuracyWarnings > 0) {
+      return {
+        gradient: 'linear-gradient(to right, #FFB54500, #FFB545)',
+        color: inaccuraciesColors.warning
+      }
+    }
+    return {
+      gradient: 'transparent',
+      color: 'transparent'
+    }
+  }
 
   const prepareTableData = () => {
     const getRows = (): TableRowModel[] => {
@@ -77,6 +99,8 @@ const AppointmentsTable = ({
         {
           field: 'inaccuraciesIndicator',
           headerName: ' ',
+          filterable: false,
+          sortable: false,
           width: 40,
           headerClassName: 'custom-header',
           renderCell: (params: GridRenderCellParams<TableRowModel>) => {
@@ -87,10 +111,8 @@ const AppointmentsTable = ({
                   width: '40px',
                   height: '40px',
                   marginTop: '4px',
-                  background:
-                    params.row.totalInaccuracyErrors > 0
-                      ? 'linear-gradient(to right, #F1361D00, #F1361D)'
-                      : 'linear-gradient(to right, #FFB54500, #FFB545)'
+                  background: getIndicatorColor(params.row.totalInaccuracyErrors, params.row.totalInaccuracyWarnings)
+                    .gradient
                 }}
               />
             )
@@ -99,6 +121,8 @@ const AppointmentsTable = ({
         {
           field: 'inaccuracies',
           headerName: 'Ошибки',
+          filterable: false,
+          sortable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell',
           renderCell: (params: GridRenderCellParams<TableRowModel>) => {
@@ -205,13 +229,6 @@ const AppointmentsTable = ({
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         }
-        // {
-        //   field: 'isFilledStatusPraesens',
-        //   headerName: 'Заполнен Status Praesens',
-        //   width: 220,
-        //   headerClassName: 'custom-header',
-        //   cellClassName: 'custom-cell'
-        // }
       ]
     }
 
@@ -226,6 +243,7 @@ const AppointmentsTable = ({
   return (
     <Box
       sx={{
+        height: 'calc(100% - 123px - 101px)',
         padding: '0px 40px',
         position: 'relative',
         '&:before': {
@@ -265,7 +283,7 @@ const AppointmentsTable = ({
                   width: '8px',
                   borderRadius: '0 8px 8px 0',
                   height: '45px',
-                  background: row.totalInaccuracyErrors > 0 ? '#F1361D' : '#FFB545',
+                  background: getIndicatorColor(row.totalInaccuracyErrors, row.totalInaccuracyWarnings).color,
                   pointerEvents: 'none',
                   zIndex: 5
                 }}
@@ -277,6 +295,7 @@ const AppointmentsTable = ({
         rows={rows}
         columns={columns}
         initialState={{}}
+        onRowClick={params => router.push(`/history/${params.row.appointmentId}`)}
         apiRef={apiRef}
         sx={{
           border: 'none',
@@ -287,6 +306,19 @@ const AppointmentsTable = ({
             fontSize: '16px',
             textAlign: 'center',
             border: 'none !important'
+          },
+          '& .MuiDataGrid-row.Mui-selected': {
+            backgroundColor: 'transparent !important'
+          },
+          '& .MuiDataGrid-row': {
+            cursor: 'pointer',
+          },
+          '& .MuiDataGrid-row:hover >.custom-cell': {
+            background: 'rgba(0, 0, 0, 0.02)',
+            transition: '0.2s ease'
+          },
+          '& .MuiDataGrid-cell': {
+            border: 'none',
           },
           '& .custom-cell': {
             backgroundColor: '#fff',

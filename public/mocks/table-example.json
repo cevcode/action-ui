@@ -75,6 +75,100 @@
             "comment": "Анализ меддокументации: обязательное поле, незап..."
           }
         ]
+      },
+      {
+        "id": 3,
+        "appointmentId": 223334457,
+        "doctorFullName": "Александров М.К.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 1",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000001,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "inaccuracies": [
+          {
+            "id": 1,
+            "type": "error",
+            "cardSubstring": "Боль в горле",
+            "comment": "Анализ меддокументации: обязательное поле, незап..."
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "appointmentId": 223334458,
+        "doctorFullName": "Александров М.К.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 1",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000002,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "inaccuracies": [
+          {
+            "id": 1,
+            "type": "warning",
+            "cardSubstring": "Боль в горле",
+            "comment": "Анализ меддокументации: обязательное поле, незап..."
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "appointmentId": 223334459,
+        "doctorFullName": "Александров М.К.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 1",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000003,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "inaccuracies": []
+      },
+      {
+          "id": 6,
+          "appointmentId": 223334460,
+          "doctorFullName": "Александров М.К.",
+          "clinic": "Клиника 1",
+          "clinicDepartment": "Отделение 1",
+          "doctorSpecialty": "Терапевт",
+          "patientId": 77777788888000004,
+          "patientFullName": "Иванов И.И.",
+          "appointmentDateTime": "2021-01-01T10:00:00",
+          "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+          "isUnderHospitalization": false,
+          "isAnamnesisCompleted": true,
+          "isFilledStatusPraesens": true,
+          "inaccuracies": []
+      },
+      {
+        "id": 7,
+        "appointmentId": 223334460,
+        "doctorFullName": "Александров М.К.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 1",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000005,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "inaccuracies": []
       }
     ]
   }

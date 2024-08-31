@@ -6,6 +6,7 @@ import Header from '@/shared/components/Header/Header'
 import { useHistoryOfChecks } from '@/api/history.service'
 import InaccuracyIndicator from '@/app/history/components/InacurracyIndicator'
 import AppointmentsTable from '@/app/history/components/AppointmentsTable'
+import { AnimatePresence } from 'framer-motion'
 
 const HistoryPage = () => {
   const { data: historyData, isLoading, isError } = useHistoryOfChecks({})
@@ -13,7 +14,7 @@ const HistoryPage = () => {
     return (
       <Box
         sx={{
-          height: '100%',
+          height: '100vh',
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
@@ -29,75 +30,78 @@ const HistoryPage = () => {
     return (
       <Box
         sx={{
-          height: '100%',
+          height: '100vh',
           display: 'flex',
           alignItems: 'center',
           flexDirection: 'column',
           justifyContent: 'center'
         }}
       >
-        <Typography variant='h4'>Произошла ошибка</Typography>
+        <Typography variant='h4'>Что-то пошло не так...</Typography>
       </Box>
     )
   }
 
   return (
-    <Box>
-      <Header />
-      <Box
-        sx={{
-          padding: '40px'
-        }}
-      >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-          <Typography variant='h4'>История проверок</Typography>
-          <TextField
-            id='search'
-            placeholder='Поиск по тексту'
-            type='search'
-            sx={{
-              background: '#EDEDED',
-              border: 'none',
-              outline: 'none',
-              boxShadow: 'none',
-              borderRadius: '12px',
-              input: {
+    <AnimatePresence>
+      <Box sx={{ height: '100vh' }}>
+        <Header />
+        <Box
+          sx={{
+            padding: '40px'
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
+            <Typography variant='h4'>История проверок</Typography>
+            <TextField
+              id='search'
+              placeholder='Поиск по тексту'
+              type='search'
+              sx={{
+                width: '400px',
+                background: '#EDEDED',
                 border: 'none',
-                padding: '10px',
                 outline: 'none',
                 boxShadow: 'none',
-                color: '#0E0E2C',
-                '&::placeholder': {
-                  textOverflow: 'ellipsis !important',
-                  color: '#0E0E2C'
+                borderRadius: '12px',
+                input: {
+                  border: 'none',
+                  padding: '10px',
+                  outline: 'none',
+                  boxShadow: 'none',
+                  color: '#0E0E2C',
+                  '&::placeholder': {
+                    textOverflow: 'ellipsis !important',
+                    color: '#0E0E2C'
+                  }
+                },
+                fieldset: {
+                  border: 'none'
                 }
-              },
-              fieldset: {
-                border: 'none'
-              }
-            }}
-          />
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              border: '1px solid #DBDBDB',
-              borderRadius: '8px',
-              padding: '6px 20px'
-            }}
-          >
-            <InaccuracyIndicator total={historyData?.data.totalWarningInaccuracies || 0} type='warning' />
-            <InaccuracyIndicator total={historyData?.data.totalErrorInaccuracies || 0} type='error' />
+              }}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 2,
+                border: '1px solid #DBDBDB',
+                borderRadius: '8px',
+                padding: '6px 20px'
+              }}
+            >
+              <InaccuracyIndicator total={historyData?.data.totalWarningInaccuracies || 0} type='warning' />
+              <InaccuracyIndicator total={historyData?.data.totalErrorInaccuracies || 0} type='error' />
+            </Box>
           </Box>
         </Box>
+        <AppointmentsTable
+          appointments={historyData?.data.appointments || []}
+          totalWarningInaccuracies={historyData?.data.totalWarningInaccuracies || 0}
+          totalErrorInaccuracies={historyData?.data.totalErrorInaccuracies || 0}
+        />
       </Box>
-      <AppointmentsTable
-        appointments={historyData?.data.appointments || []}
-        totalWarningInaccuracies={historyData?.data.totalWarningInaccuracies || 0}
-        totalErrorInaccuracies={historyData?.data.totalErrorInaccuracies || 0}
-      />
-    </Box>
+    </AnimatePresence>
   )
 }
 

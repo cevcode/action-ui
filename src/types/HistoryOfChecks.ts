@@ -37,3 +37,19 @@ export interface InaccuracyProps {
   cardSubstring: string
   comment: string
 }
+
+export interface PatientCardProps {
+  id: number
+  cardTitle: string
+  cardData: string[]
+  inaccuracies: InaccuracyProps[]
+}
+
+export interface PatientHistoryProps {
+  id: number,
+  patientId: number,
+  personFullName: string,
+  totalErrorInaccuracies: number,
+  totalWarningInaccuracies: number,
+  patientCards: PatientCardProps[]
+}
