@@ -5,7 +5,7 @@ import React from 'react'
 import Header from '@/shared/components/Header/Header'
 import { useHistoryOfChecks } from '@/api/history.service'
 import InaccuracyIndicator from '@/app/history/components/InacurracyIndicator'
-import AppointmentsTable from '@/app/history/components/AppointmentsTable'
+import AppointmentsTable from '@/app/history/components/AppointmentsTable/AppointmentsTable'
 import { AnimatePresence } from 'framer-motion'
 
 const HistoryPage = () => {
