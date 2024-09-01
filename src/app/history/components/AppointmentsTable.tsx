@@ -101,6 +101,7 @@ const AppointmentsTable = ({
           headerName: ' ',
           filterable: false,
           sortable: false,
+          selectable: false,
           disableColumnMenu: true,
           width: 40,
           headerClassName: 'custom-header',
@@ -125,6 +126,7 @@ const AppointmentsTable = ({
           filterable: false,
           sortable: false,
           disableColumnMenu: true,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell',
           renderCell: (params: GridRenderCellParams<TableRowModel>) => {
@@ -165,6 +167,7 @@ const AppointmentsTable = ({
           field: 'appointmentId',
           headerName: 'ID приема',
           width: 130,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -172,6 +175,7 @@ const AppointmentsTable = ({
           field: 'doctorFullName',
           headerName: 'ФИО врача',
           width: 160,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -179,6 +183,7 @@ const AppointmentsTable = ({
           field: 'clinic',
           headerName: 'Клиника',
           width: 120,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -186,6 +191,7 @@ const AppointmentsTable = ({
           field: 'clinicDepartment',
           headerName: 'Отделение',
           width: 130,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -193,6 +199,7 @@ const AppointmentsTable = ({
           field: 'doctorSpecialty',
           headerName: 'Специальность',
           width: 130,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -200,6 +207,7 @@ const AppointmentsTable = ({
           field: 'patientId',
           headerName: 'ID пациента',
           width: 230,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -207,6 +215,7 @@ const AppointmentsTable = ({
           field: 'appointmentDateTime',
           headerName: 'Дата/время приема',
           width: 200,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -214,6 +223,7 @@ const AppointmentsTable = ({
           field: 'MKB10Code',
           headerName: 'Код МКБ-10',
           width: 500,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -221,6 +231,7 @@ const AppointmentsTable = ({
           field: 'isUnderHospitalization',
           headerName: 'Отправлен на госпитализацию',
           width: 280,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         },
@@ -228,6 +239,7 @@ const AppointmentsTable = ({
           field: 'isAnamnesisCompleted',
           headerName: 'Заполнен анамнез',
           width: 160,
+          selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
         }
@@ -272,9 +284,10 @@ const AppointmentsTable = ({
         }
       }}
     >
-      {scrollPosition.left > 0
-        ? rows.map((row, index) => {
-            const top = index * 52 + 60
+      {scrollPosition.left > 0 ? (
+        <div style={{ overflow: 'hidden', height: '84%', width: '8px', left: '0', position: 'absolute', top: '60px' }}>
+          {rows.map((row, index) => {
+            const top = index * 52 - scrollPosition.top
             return (
               <div
                 key={row.id}
@@ -291,8 +304,9 @@ const AppointmentsTable = ({
                 }}
               />
             )
-          })
-        : null}
+          })}
+        </div>
+      ) : null}
       <DataGrid
         rows={rows}
         columns={columns}
@@ -302,7 +316,7 @@ const AppointmentsTable = ({
         sx={{
           border: 'none',
           '& .custom-header': {
-            backgroundColor: 'transparent',
+            backgroundColor: '#F7F6F4',
             color: '#C0C0C0',
             fontWeight: '500',
             fontSize: '16px',
@@ -313,14 +327,14 @@ const AppointmentsTable = ({
             backgroundColor: 'transparent !important'
           },
           '& .MuiDataGrid-row': {
-            cursor: 'pointer',
+            cursor: 'pointer'
           },
           '& .MuiDataGrid-row:hover >.custom-cell': {
             background: 'rgba(0, 0, 0, 0.02)',
             transition: '0.2s ease'
           },
           '& .MuiDataGrid-cell': {
-            border: 'none',
+            border: 'none'
           },
           '& .custom-cell': {
             backgroundColor: '#fff',
