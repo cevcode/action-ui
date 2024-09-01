@@ -1,15 +1,40 @@
 'use client'
 
 import { Box, CircularProgress, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '@/shared/components/Header/Header'
 import { useHistoryOfChecks } from '@/api/history.service'
 import InaccuracyIndicator from '@/app/history/components/InacurracyIndicator'
 import AppointmentsTable from '@/app/history/components/AppointmentsTable/AppointmentsTable'
 import { AnimatePresence } from 'framer-motion'
+import { HistoryOfChecksCardProps } from '@/types/HistoryOfChecks'
 
 const HistoryPage = () => {
   const { data: historyData, isLoading, isError } = useHistoryOfChecks({})
+
+  const [appointments, setAppointments] = useState<HistoryOfChecksCardProps[]>([])
+  const [searchQuery, setSearchQuery] = useState('')
+
+  useEffect(() => {
+    if (historyData?.data.appointments) {
+      setAppointments(historyData.data.appointments)
+    }
+  }, [historyData])
+
+  // Filter appointments based on the search query
+  const filteredAppointments = appointments.filter(appointment => {
+    return (
+      appointment.doctorFullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.clinic.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.clinicDepartment.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.doctorSpecialty.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.patientFullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.MKB10Code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.appointmentId.toString().toLowerCase().includes(searchQuery.toLowerCase()) ||
+      appointment.patientId.toString().toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  })
+
   if (isLoading) {
     return (
       <Box
@@ -57,6 +82,8 @@ const HistoryPage = () => {
               id='search'
               placeholder='Поиск по тексту'
               type='search'
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
               sx={{
                 width: '400px',
                 background: '#EDEDED',
@@ -96,7 +123,7 @@ const HistoryPage = () => {
           </Box>
         </Box>
         <AppointmentsTable
-          appointments={historyData?.data.appointments || []}
+          appointments={filteredAppointments}
           totalWarningInaccuracies={historyData?.data.totalWarningInaccuracies || 0}
           totalErrorInaccuracies={historyData?.data.totalErrorInaccuracies || 0}
         />

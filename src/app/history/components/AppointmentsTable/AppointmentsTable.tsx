@@ -8,6 +8,7 @@ import { inaccuraciesColors } from '@/app/history/helpers/helpers'
 import { useRouter } from 'next/navigation'
 import { getTableWrapperStyles, tableStyles } from '@/app/history/components/AppointmentsTable/AppointmentsTable.styled'
 import { GRID_DEFAULT_LOCALE_TEXT } from '@/app/history/components/AppointmentsTable/helpers'
+import moment from 'moment'
 
 interface AppointmentsTableProps {
   appointments: HistoryOfChecksCardProps[]
@@ -31,6 +32,8 @@ interface TableRowModel {
   isUnderHospitalization: string
   isAnamnesisCompleted: string
   isFilledStatusPraesens: string
+  errorsPercent: number
+  warningsPercent: number
 }
 const AppointmentsTable = ({
   appointments,
@@ -87,11 +90,13 @@ const AppointmentsTable = ({
           doctorSpecialty: appointment.doctorSpecialty,
           patientId: appointment.patientId,
           patientFullName: appointment.patientFullName,
-          appointmentDateTime: appointment.appointmentDateTime,
+          appointmentDateTime: moment(appointment.appointmentDateTime).format('DD/MM/YYYY'),
           MKB10Code: appointment.MKB10Code,
           isUnderHospitalization: humanizeBoolean(appointment.isUnderHospitalization),
           isAnamnesisCompleted: humanizeBoolean(appointment.isAnamnesisCompleted),
-          isFilledStatusPraesens: humanizeBoolean(appointment.isFilledStatusPraesens)
+          isFilledStatusPraesens: humanizeBoolean(appointment.isFilledStatusPraesens),
+          errorsPercent: appointment.errorsRate?.errors || 0,
+          warningsPercent: appointment.errorsRate?.warnings || 0
         }
       })
     }
@@ -244,6 +249,43 @@ const AppointmentsTable = ({
           selectable: false,
           headerClassName: 'custom-header',
           cellClassName: 'custom-cell'
+        },
+        {
+          field: 'errorsRate',
+          headerName: 'Процент ошибок',
+          filterable: false,
+          sortable: false,
+          selectable: false,
+          disableColumnMenu: true,
+          width: 160,
+          headerClassName: 'custom-header',
+          cellClassName: 'custom-cell',
+          renderCell: (params: GridRenderCellParams<TableRowModel>) => {
+            return (
+              <Box>
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                  <InaccuracyIndicator total={params.row.warningsPercent} text='%' type='warning' />
+                  <InaccuracyIndicator total={params.row.errorsPercent} text='%' type='error' />
+                </Box>
+                <Box
+                  sx={{ display: 'flex', width: '100%', background: '#F3F3F3', borderRadius: '12px', height: '6px', overflow: 'hidden' }}
+                >
+                  <Box
+                    sx={{
+                      background: inaccuraciesColors.warning,
+                      width: `${params.row.warningsPercent}%`,
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      background: inaccuraciesColors.error,
+                      width: `${params.row.errorsPercent}%`,
+                    }}
+                  />
+                </Box>
+              </Box>
+            )
+          }
         }
       ]
     }

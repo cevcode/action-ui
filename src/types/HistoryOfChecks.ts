@@ -1,9 +1,13 @@
-
 export interface HistoryOfChecksFilterProps {
   activeSections?: string[]
   doctorFullName?: string
   patientFullName?: string
   withErrors?: boolean
+}
+
+export interface HistoryOfChecksErrorsRateProps {
+  errors?: number
+  warnings?: number
 }
 
 export interface HistoryOfChecksCardProps {
@@ -20,6 +24,7 @@ export interface HistoryOfChecksCardProps {
   isUnderHospitalization: boolean
   isAnamnesisCompleted: boolean
   isFilledStatusPraesens: boolean
+  errorsRate: HistoryOfChecksErrorsRateProps
   inaccuracies: InaccuracyProps[]
 }
 
@@ -46,10 +51,10 @@ export interface PatientCardProps {
 }
 
 export interface PatientHistoryProps {
-  id: number,
-  patientId: number,
-  personFullName: string,
-  totalErrorInaccuracies: number,
-  totalWarningInaccuracies: number,
+  id: number
+  patientId: number
+  personFullName: string
+  totalErrorInaccuracies: number
+  totalWarningInaccuracies: number
   patientCards: PatientCardProps[]
 }

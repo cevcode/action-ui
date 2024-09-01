@@ -38,6 +38,10 @@
         "isUnderHospitalization": false,
         "isAnamnesisCompleted": true,
         "isFilledStatusPraesens": true,
+        "errorsRate": {
+          "errors": 2,
+          "warnings": 1
+        },
         "inaccuracies": [
           {
             "id": 1,
@@ -67,6 +71,10 @@
         "isUnderHospitalization": false,
         "isAnamnesisCompleted": true,
         "isFilledStatusPraesens": true,
+        "errorsRate": {
+          "errors": 6,
+          "warnings": 0
+        },
         "inaccuracies": [
           {
             "id": 1,
@@ -90,6 +98,10 @@
         "isUnderHospitalization": false,
         "isAnamnesisCompleted": true,
         "isFilledStatusPraesens": true,
+        "errorsRate": {
+          "errors": 2,
+          "warnings": 0
+        },
         "inaccuracies": [
           {
             "id": 1,
@@ -113,6 +125,10 @@
         "isUnderHospitalization": false,
         "isAnamnesisCompleted": true,
         "isFilledStatusPraesens": true,
+        "errorsRate": {
+          "errors": 9,
+          "warnings": 12
+        },
         "inaccuracies": [
           {
             "id": 1,
@@ -136,23 +152,25 @@
         "isUnderHospitalization": false,
         "isAnamnesisCompleted": true,
         "isFilledStatusPraesens": true,
+        "errorsRate": {},
         "inaccuracies": []
       },
       {
-          "id": 6,
-          "appointmentId": 223334460,
-          "doctorFullName": "Иванов П.П.",
-          "clinic": "Клиника 1",
-          "clinicDepartment": "Отделение 3",
-          "doctorSpecialty": "Терапевт",
-          "patientId": 77777788888000005,
-          "patientFullName": "Иванов И.И.",
-          "appointmentDateTime": "2021-01-01T10:00:00",
-          "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
-          "isUnderHospitalization": false,
-          "isAnamnesisCompleted": true,
-          "isFilledStatusPraesens": true,
-          "inaccuracies": []
+        "id": 6,
+        "appointmentId": 223334460,
+        "doctorFullName": "Иванов П.П.",
+        "clinic": "Клиника 1",
+        "clinicDepartment": "Отделение 3",
+        "doctorSpecialty": "Терапевт",
+        "patientId": 77777788888000005,
+        "patientFullName": "Иванов И.И.",
+        "appointmentDateTime": "2021-01-01T10:00:00",
+        "MKB10Code": "J06.9 Острая респираторная инфекция неуточненная",
+        "isUnderHospitalization": false,
+        "isAnamnesisCompleted": true,
+        "isFilledStatusPraesens": true,
+        "errorsRate": {},
+        "inaccuracies": []
       },
       {
         "id": 7,
@@ -168,6 +186,7 @@
         "isUnderHospitalization": false,
         "isAnamnesisCompleted": true,
         "isFilledStatusPraesens": true,
+        "errorsRate": {},
         "inaccuracies": []
       }
     ]
