@@ -12,6 +12,7 @@ interface InaccuracyCardProps {
 }
 
 const InaccuracyCard = ({ inaccuracy, index }: InaccuracyCardProps) => {
+  const checkIsHtml = (value: string) => /<\/?[a-z][\s\S]*>/i.test(value)
   return (
     <StyledAnimatedInaccuracyCard
       variants={bottomToTopAnimation(index ? ++index * 0.15 : 0.15)}
@@ -36,6 +37,7 @@ const InaccuracyCard = ({ inaccuracy, index }: InaccuracyCardProps) => {
         </StyledEditButton>
       </Box>
       <Typography
+        variant='h6'
         sx={{
           fontSize: '16px',
           span: {
@@ -44,8 +46,16 @@ const InaccuracyCard = ({ inaccuracy, index }: InaccuracyCardProps) => {
           }
         }}
       >
-        «{inaccuracy.cardSubstring}»:
-        <span>{inaccuracy.comment}</span>
+        {checkIsHtml(inaccuracy.cardSubstring) ? (
+          <span dangerouslySetInnerHTML={{ __html: inaccuracy.cardSubstring }} />
+        ) : (
+          `«${inaccuracy.cardSubstring}»:`
+        )}
+        {checkIsHtml(inaccuracy.comment) ? (
+          <span dangerouslySetInnerHTML={{ __html: inaccuracy.comment }} />
+        ) : (
+          <span>{inaccuracy.comment}</span>
+        )}
       </Typography>
     </StyledAnimatedInaccuracyCard>
   )

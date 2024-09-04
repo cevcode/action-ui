@@ -1,5 +1,12 @@
 import { Box } from '@mui/material'
-import { DataGrid, GridRenderCellParams, useGridApiRef } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridFilterModel,
+  GridPaginationModel,
+  GridRenderCellParams,
+  GridSortModel,
+  useGridApiRef
+} from '@mui/x-data-grid'
 import { HistoryOfChecksCardProps } from '@/types/HistoryOfChecks'
 import InaccuracyIndicator from '@/app/history/components/InacurracyIndicator'
 import React, { useEffect, useState } from 'react'
@@ -47,6 +54,9 @@ const AppointmentsTable = ({
     left: 0,
     right: 0
   })
+  const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] })
+  const [sorterModel, setSorterModel] = useState<GridSortModel>([])
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({ pageSize: 100, page: 0 })
 
   useEffect(() => {
     return apiRef.current.subscribeEvent('scrollPositionChange', () => {
@@ -268,18 +278,25 @@ const AppointmentsTable = ({
                   <InaccuracyIndicator total={params.row.errorsPercent} text='%' type='error' />
                 </Box>
                 <Box
-                  sx={{ display: 'flex', width: '100%', background: '#F3F3F3', borderRadius: '12px', height: '6px', overflow: 'hidden' }}
+                  sx={{
+                    display: 'flex',
+                    width: '100%',
+                    background: '#F3F3F3',
+                    borderRadius: '12px',
+                    height: '6px',
+                    overflow: 'hidden'
+                  }}
                 >
                   <Box
                     sx={{
                       background: inaccuraciesColors.warning,
-                      width: `${params.row.warningsPercent}%`,
+                      width: `${params.row.warningsPercent}%`
                     }}
                   />
                   <Box
                     sx={{
                       background: inaccuraciesColors.error,
-                      width: `${params.row.errorsPercent}%`,
+                      width: `${params.row.errorsPercent}%`
                     }}
                   />
                 </Box>
@@ -328,6 +345,9 @@ const AppointmentsTable = ({
         columns={columns}
         localeText={GRID_DEFAULT_LOCALE_TEXT}
         initialState={{}}
+        onFilterModelChange={newFilterModel => setFilterModel(newFilterModel)}
+        onSortModelChange={newSortModel => setSorterModel(newSortModel)}
+        onPaginationModelChange={newPaginationModel => setPaginationModel(newPaginationModel)}
         onRowClick={params => router.push(`/history/${params.row.appointmentId}`)}
         apiRef={apiRef}
         sx={tableStyles}
