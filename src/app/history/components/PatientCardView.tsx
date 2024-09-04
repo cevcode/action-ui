@@ -14,6 +14,8 @@ interface PatientCardViewProps {
 }
 
 const PatientCardView = ({ card, commentsVisible, index }: PatientCardViewProps) => {
+  const checkIsHtml = (value: string) => /<\/?[a-z][\s\S]*>/i.test(value)
+
   return (
     <Box sx={{ marginTop: '28px', display: 'flex', gap: 6, overflow: 'hidden' }}>
       <StyledAnimatedPatientCard
@@ -44,7 +46,11 @@ const PatientCardView = ({ card, commentsVisible, index }: PatientCardViewProps)
           {card.cardData.map((text, i) => {
             return (
               <Typography variant='subtitle1' key={i}>
-                {getMarkedText(text, card.inaccuracies)}
+                {checkIsHtml(getMarkedText(text, card.inaccuracies) as string) ? (
+                  <span dangerouslySetInnerHTML={{ __html: getMarkedText(text, card.inaccuracies) }} />
+                ) : (
+                  getMarkedText(text, card.inaccuracies)
+                )}
               </Typography>
             )
           })}
